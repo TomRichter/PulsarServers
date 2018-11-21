@@ -1,6 +1,5 @@
 ﻿using ExitGames.Client.Photon;
 using ExitGames.Client.Photon.LoadBalancing;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 
@@ -15,7 +14,7 @@ namespace pulsar_servers
         {
             this.AppId = appId;
             this.AppVersion = gameVersion + "_1.58";
-            this.NickName = "George";
+            this.NickName = "Discord Webhook";
 
             this.ConnectToRegionMaster(region);
         }

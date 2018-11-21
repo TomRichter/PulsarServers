@@ -1,5 +1,8 @@
-﻿using ExitGames.Client.Photon.LoadBalancing;
+﻿using Discord;
+using Discord.Webhook;
+using ExitGames.Client.Photon.LoadBalancing;
 using System;
+using System.Linq;
 
 namespace pulsar_servers
 {
@@ -11,16 +14,24 @@ namespace pulsar_servers
             string appId = "***REMOVED***";
             string gameVersion = "Beta 20.2";
 
+            DiscordWebhookClient webhook = new DiscordWebhookClient(0, "");
+
             Console.WriteLine("Iterating RoomInfos...");
             foreach (string region in availableRegions)
             {
-                PhotonClient photon = new PhotonClient(appId, gameVersion, region);
+                EmbedBuilder eb = new EmbedBuilder()
+                    .WithTitle($"{region.ToUpper()} PULSAR Games")
+                    .WithColor(Color.Blue)
+                    .WithCurrentTimestamp();
 
-                Console.WriteLine(String.Format("===== Region: {0} =====", region));
-                foreach (RoomInfo room in photon.GetRooms())
+                PhotonClient photon = new PhotonClient(appId, gameVersion, region);
+                foreach (RoomInfo room in photon.GetRooms().OrderBy(x => x.ToMarkdown()))
                 {
-                    Console.WriteLine(room.ToMarkdown());
+                    eb.Description += room.ToMarkdown();
                 }
+
+                Embed embed = eb.Build();
+                Console.WriteLine(embed.ToString());
             }
 
             Console.WriteLine("Press any key to continue...");
