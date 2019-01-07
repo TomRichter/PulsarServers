@@ -1,0 +1,9 @@
+﻿<appSettings>
+  <!-- Copy Private.config.example to Private.config and fill in secret values -->
+  <!-- Sensitive info; do not publish or commit to source control! -->
+
+  <!-- Discord Bot auth token; check Bot Settings > Bot > Token at https://discordapp.com/developers/applications/ -->
+  <add key="DISCORD_TOKEN" value="ABCDEFGHIJKLMNOPQRSTUVWX.123456.abcdefghijklmnopqrstuvwxyzA"/>
+  <!-- Photon App ID; see game code or Photon's website -->
+  <add key="PHOTON_APPID" value="ABCDEFGH-1234-abcd-1234-ABCDEFGHIJKL"/>
+</appSettings>

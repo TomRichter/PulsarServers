@@ -1,3 +1,3 @@
-# [pulsar-servers](https://github.com/TomRichter/pulsar-servers)
+# [PulsarServers](https://github.com/TomRichter/pulsar-servers)
 
-**pulsar-servers** is a simple C# service that pipes the list of live PULSAR games to Discord via webhook.
+**Pulsar Servers** is a simple C# Discord bot that pipes the list of running PULSAR games to a text channels.
