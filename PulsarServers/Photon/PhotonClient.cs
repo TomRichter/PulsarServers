@@ -70,6 +70,12 @@ namespace PulsarServers.Photon
             while (!cancellationTokenSource.Token.IsCancellationRequested)
             {
                 this.Service();
+
+                if (!this.IsConnected)
+                {
+                    this.ConnectToRegionMaster(CloudRegion);
+                }
+
                 Thread.Sleep(tickLength);
             }
         }

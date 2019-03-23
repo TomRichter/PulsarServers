@@ -38,13 +38,20 @@ namespace PulsarServers.Photon
         private readonly string statsIconUrl = "https://i.imgur.com/J4GXWfu.png";
 
         /// <summary>
+        /// Game version to display lobbies for.
+        /// </summary>
+        private readonly string gameVersion;
+
+        /// <summary>
         /// PhotonService constructor.
         /// </summary>
         /// <param name="appId">Photon application ID, from game or Photon website.</param>
         /// <param name="gameVersion">Game version string.</param>
         public PhotonService(string appId, string gameVersion)
         {
-            Console.WriteLine("PhotonService");
+            Console.WriteLine($"PhotonService - {gameVersion}");
+            this.gameVersion = gameVersion;
+
             foreach (PhotonRegion region in regions.Values)
             {
                 region.StartClient(appId, gameVersion);
@@ -68,6 +75,7 @@ namespace PulsarServers.Photon
                 .Select(r => r.ToMarkdown());
 
             int playerCount = roomInfos.Sum(r => r.PlayerCount);
+            int botCount = roomInfos.Sum(r => (int)r.CustomProperties["CurrentPlayersPlusBots"]) - playerCount;
             int displayCount = 0;
 
             StringBuilder descBuilder = new StringBuilder(capacity: 2048, maxCapacity: 2048);
@@ -88,9 +96,9 @@ namespace PulsarServers.Photon
 
             return new EmbedBuilder()
                 .WithColor(Color.Blue)
-                .WithAuthor($"{region.Name} Lobby", region.IconURL)
+                .WithAuthor($"{region.Name}", region.IconURL)
                 .WithDescription(descBuilder.ToString())
-                .WithFooter($"Showing {displayCount} of {roomInfos.Count()} games totaling {playerCount} real players.", statsIconUrl)
+                .WithFooter($"Showing {displayCount} of {roomInfos.Count()} games.  {playerCount} players and {botCount} bots online.  {gameVersion}", statsIconUrl)
                 .WithCurrentTimestamp()
                 .Build();
         }
